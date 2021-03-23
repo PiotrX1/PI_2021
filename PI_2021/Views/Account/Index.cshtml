@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+<h1>Informacje o koncie</h1>
+
+@if (SignInManager.IsSignedIn(User))
+{
+     @UserManager.GetUserName(User)
+    
+    <p>Tu coś jeszcze będzie</p>
+}

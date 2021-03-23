@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Lista osób";
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">Rejestr osób zaginionych </h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Zdjęcie</th>
+                    <th class="d-none d-md-table-cell">Opis</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Płeć</th>
+                    <th>Wiek</th>
+                    <th>Miasto</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.People)
+                {
+                    <tr>
+                        <td><img src="~/photos/@item.Picture" class="photo" /></td>
+                        <td class="align-middle d-none d-md-table-cell">@item.Description</td>
+                        <td class="align-middle">@item.FirstName</td>
+                        <td class="align-middle">@item.LastName</td>
+                        <td class="align-middle">@(item.Gender == 'K' ? "Kobieta" : "Mężczyzna")</td>
+                        <td class="align-middle">@item.Age</td>
+                        <td class="align-middle">@item.City</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Pagination">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(ViewBag.Page == 1 ? "disabled":"")"><a class="page-link" asp-controller="Home" asp-action="Missing" asp-route-page="@(ViewBag.Page-1)">Poprzednia</a></li>
+            @for (int i = 1; i <= ViewBag.Pages; i++)
+            {
+                <li class="page-item @(ViewBag.Page == i ? "active":"")"><a class="page-link" asp-controller="Home" asp-action="Missing" asp-route-page="@i">@i</a></li>
+            }
+            <li class="page-item @(ViewBag.Page == ViewBag.Pages ? "disabled":"")"><a class="page-link" asp-controller="Home" asp-action="Missing" asp-route-page="@(ViewBag.Page+1)">Następna</a></li>
+        </ul>
+    </nav>
+
+</div>

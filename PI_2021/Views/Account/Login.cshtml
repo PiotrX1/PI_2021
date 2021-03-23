@@ -1,0 +1,23 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Logowanie";
+}
+@model UserLoginModel;
+
+<h2>Logowanie</h2>
+<div>
+    <form method="post">
+        <div class="form-group">
+            <p>Login: admin<br />Hasło: Qwerty123!</p>
+            <p>@Html.ValidationSummary()</p>
+            <label asp-for="@Model.Username">Nazwa użytkownika</label>
+            @Html.TextBoxFor(m => m.Username, new { placeholder = "Nazwa użytkownika", @class = "form-control" })
+            <label asp-for="@Model.Password">Hasło</label>
+            @Html.PasswordFor(m => m.Password, new { placeholder = "Hasło", @class = "form-control"})
+        </div>
+        <button type="submit" class="btn btn-primary">Zaloguj</button>
+    </form>
+
+</div>

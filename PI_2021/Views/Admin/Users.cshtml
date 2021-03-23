@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Identity;
+
+@model List<IdentityUser>
+@{ 
+    var NewUser = new NewUserModel();
+}
+
+
+<div>
+    <h3>Użytkownicy</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Email</th>
+                <th>Zablokowane</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@(user.LockoutEnabled && user.LockoutEnd > DateTime.Now ? "Tak" : "Nie")</td>
+                    <td><a asp-controller="Admin" asp-action="DeleteUser">Usuń</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Dodaj użytkownika</h4>
+    <form method="post">
+        <div class="form-group">
+            <p>@Html.ValidationSummary()</p>
+            <label asp-for="@NewUser.UserName">Nazwa użytkownika</label>
+            @Html.TextBoxFor(m => NewUser.UserName, new { placeholder = "Nazwa użytkownika", @class = "form-control" })
+            <label asp-for="@NewUser.Email">Adres email</label>
+            @Html.TextBoxFor(m => NewUser.Email, new { placeholder = "Email", @class = "form-control" })
+            <label asp-for="@NewUser.Password">Hasło</label>
+            @Html.PasswordFor(m => NewUser.Password, new { placeholder = "Hasło", @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-primary">Utwórz</button>
+    </form>
+
+
+</div>

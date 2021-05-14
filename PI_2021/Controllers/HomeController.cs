@@ -31,16 +31,26 @@ namespace PI_2021.Controllers
             return RedirectToAction("Missing");
         }
 
-        public IActionResult Missing(int page = 1)
+        public IActionResult Missing(int page = 1, char plec = ' ')
         {
-            int count = dbContext.People.Count();
-            var people = dbContext.People.Skip(10*(page-1)).Take(10).ToList();
+
+            var temp = dbContext.People.AsQueryable();
+
+            if (plec == 'K')
+                temp = temp.Where(x => x.Gender == 'K');
+            else if (plec == 'M')
+                temp = temp.Where(x => x.Gender == 'M');
+
+
+            int count = temp.Count();
+            var people = temp.Skip(10*(page-1)).Take(10).ToList();
 
             int pages = (int)Math.Ceiling(((double)count / 10));
 
             ViewBag.People = people;
             ViewBag.Pages = pages;
             ViewBag.Page = page;
+            ViewBag.Gender = plec;
 
 
             return View("Index");

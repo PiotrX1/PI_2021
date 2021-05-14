@@ -1,10 +1,50 @@
 ﻿@{
     ViewData["Title"] = "Lista osób";
 
+    List<char> Genders = new List<char>() { 'K', 'M' };
+
 }
 
 <div class="text-center">
     <h1 class="display-4">Rejestr osób zaginionych </h1>
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <p>
+                <a class="text-primary" data-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="filters">Filtry</a>
+            </p>
+        </div>
+        <form>
+            <div id="filters" class="row collapse">
+                <div class="form-group col-md">
+                    <label for="gender">Płeć</label>
+                    <select id="gender" class="form-control" onchange="location.href='?plec='+$('#gender').val() ;">
+                        <option value=" ">Wybierz</option>
+                        <option value="K">Kobieta</option>
+                        <option value="M">Mężczyzna</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="table-responsive">
         <table class="table table-striped">
@@ -39,12 +79,12 @@
 
     <nav aria-label="Pagination">
         <ul class="pagination justify-content-center">
-            <li class="page-item @(ViewBag.Page == 1 ? "disabled":"")"><a class="page-link" asp-controller="Home" asp-action="Missing" asp-route-page="@(ViewBag.Page-1)">Poprzednia</a></li>
+            <li class="page-item @(ViewBag.Page == 1 ? "disabled":"")"><a class="page-link" asp-controller="Home" asp-action="Missing" asp-route-page="@(ViewBag.Page-1)" asp-route-plec="@(ViewBag.Gender)">Poprzednia</a></li>
             @for (int i = 1; i <= ViewBag.Pages; i++)
             {
-                <li class="page-item @(ViewBag.Page == i ? "active":"")"><a class="page-link" asp-controller="Home" asp-action="Missing" asp-route-page="@i">@i</a></li>
+                <li class="page-item @(ViewBag.Page == i ? "active":"")"><a class="page-link" asp-controller="Home" asp-action="Missing" asp-route-page="@i" asp-route-plec="@(ViewBag.Gender)">@i</a></li>
             }
-            <li class="page-item @(ViewBag.Page == ViewBag.Pages ? "disabled":"")"><a class="page-link" asp-controller="Home" asp-action="Missing" asp-route-page="@(ViewBag.Page+1)">Następna</a></li>
+            <li class="page-item @(ViewBag.Page == ViewBag.Pages ? "disabled":"")"><a class="page-link" asp-controller="Home" asp-action="Missing" asp-route-page="@(ViewBag.Page+1)" asp-route-plec="@(ViewBag.Gender)">Następna</a></li>
         </ul>
     </nav>
 

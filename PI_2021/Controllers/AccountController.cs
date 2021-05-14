@@ -56,7 +56,6 @@ namespace PI_2021.Controllers
 
                 if(result.Succeeded)
                 {
-                    await userManager.AddClaimAsync(user, new Claim("UserRole", "Admin"));
                     return RedirectToAction("Index");
                 }
                 else if(result.IsLockedOut)
